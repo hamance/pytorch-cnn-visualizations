@@ -3,6 +3,7 @@ Created on Wed Jan 17 08:05:11 2018
 
 @author: Utku Ozbulak - github.com/utkuozbulak
 """
+import os
 import cv2
 import torch
 from torch.autograd import Variable
@@ -102,7 +103,8 @@ class InvertedRepresentation():
             optimizer.step()
             # Generate image every 5 iterations
             if i % 5 == 0:
-                print('Iteration:', str(i), 'Loss:', loss.data.numpy()[0])
+                # print('Iteration:', str(i), 'Loss:', loss.data.numpy()[0])
+                print('Iteration:', str(i), 'Loss:', loss.data.numpy().item())
                 x = recreate_image(opt_img)
                 cv2.imwrite('../generated/Inv_Image_Layer_' + str(target_layer) +
                             '_Iteration_' + str(i) + '.jpg', x)

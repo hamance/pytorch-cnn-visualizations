@@ -40,7 +40,8 @@ class ClassSpecificImageGeneration():
             output = self.model(self.processed_image)
             # Target specific class
             class_loss = -output[0, self.target_class]
-            print('Iteration:', str(i), 'Loss', "{0:.2f}".format(class_loss.data.numpy()[0]))
+            # print('Iteration:', str(i), 'Loss', "{0:.2f}".format(class_loss.data.numpy()[0]))
+            print('Iteration:', str(i), 'Loss:', "{0:.2f}".format(class_loss.data.numpy().item()))
             # Zero grads
             self.model.zero_grad()
             # Backward
@@ -56,6 +57,7 @@ class ClassSpecificImageGeneration():
 
 if __name__ == '__main__':
     target_class = 130  # Flamingo
-    pretrained_model = models.alexnet(pretrained=True)
+    # pretrained_model = models.alexnet(pretrained=True)
+    pretrained_model = models.vgg19(pretrained=True)
     csig = ClassSpecificImageGeneration(pretrained_model, target_class)
     csig.generate()
